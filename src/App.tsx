@@ -8,7 +8,6 @@ export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <BrowserRouter>
-        <h1>Hello World</h1>
         <Router />
       </BrowserRouter>
       <GlobalStyle />
