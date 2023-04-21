@@ -1,4 +1,3 @@
-import { Status } from './styles'
 import styled from 'styled-components'
 
 export const HistoryContainer = styled.main`
