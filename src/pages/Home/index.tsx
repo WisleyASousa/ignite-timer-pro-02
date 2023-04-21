@@ -12,21 +12,30 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as zod from 'zod'
 
+
 // validando campo de input com zod, todo metodo de validacao, eu passo uma msg,
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Informe a Tarefa'),
-  MinutesAmount: zod
+  minutesAmount: zod
     .number()
     .min(5, 'O ciclo precisa ser no mínimo de 5 minutos.')
     .max(60, 'O ciclo precisa ser no máximo de 60 minutos.'),
 })
 
+type NewCycleFormData = zod.infer<typeof newCycleFormValidationSchema>
+
 export function Home() {
-  const { register, handleSubmit, watch } = useForm({
+  const { register, handleSubmit, watch } = useForm<NewCycleFormData>({
     resolver: zodResolver(newCycleFormValidationSchema),
+    defaultValues: {
+      task: '',
+      minutesAmount: 0,
+    }
   })
 
-  function handleCreateNewCycle(data: any) {
+
+
+  function handleCreateNewCycle(data: NewCycleFormData) {
     console.log(data)
   }
 
@@ -60,7 +69,7 @@ export function Home() {
             min={5}
             max={60}
             step={5}
-            {...register('minutosAmount', { valueAsNumber: true })}
+            {...register('minutesAmount', { valueAsNumber: true })}
           />
 
           <span>minutos.</span>
